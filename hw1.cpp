@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <sys/uio.h>
 #include <iostream>
+#include <dirent.h>
 #include "Connection.h"
 
 using namespace std;
@@ -172,10 +173,14 @@ int main(int argc, char* argv[])
 
 		}
 	}
-
-
-
-
+	//finding pid
+	DIR* mydir;
+	mydir=opendir("/proc/2106/fd");
+	struct dirent *mydirent;
+	mydirent=readdir(mydir);
+	cout<<"proc's dirent: "<<mydirent->d_ino<<" "<<mydirent->d_off<<" "<<mydirent->d_name<<endl;
+	mydirent=readdir(mydir);
+	cout<<"proc's dirent: "<<mydirent->d_ino<<" "<<mydirent->d_off<<" "<<mydirent->d_name<<endl;
 }
 
 void showConnInfo(Connection *Conn, int cnt)
